@@ -22,16 +22,15 @@ const textColor = Color.white()
 // Access DWD-Data for Pollen in Germany
 async function getData(){
     let region_id = args.widgetParameter;
-    let partregion_id = args.widgetParameter;
-    if (!region_id && !partregion_id) {
-        partregion_id = 121;
+    if (!region_id) {
+        region_id = 121;
     }
     const url = 'https://opendata.dwd.de/climate_environment/health/alerts/s31fg.json'
     let request = new Request(url)
     let response = await request.loadJSON()
     let treesData = []
     for (item of response.content) {
-        if (item.partregion_id == 121 ) {
+        if (item.partregion_id == region_id || item.region_id == region_id) {
             console.log(item.Pollen)
             for (var i in item.Pollen) {
               console.log(i)
